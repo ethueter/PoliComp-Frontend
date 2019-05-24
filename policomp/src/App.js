@@ -1,26 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import MainContainer from './MainContainer';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends React.Component {
+
+  constructor() {
+    super()
+    this.state = {
+      topStories: []
+      
+    }
+
+  }
+
+  componentDidMount() {
+    fetch(`https://newsapi.org/v2/top-headlines?country=us&apiKey=9663743b34524026854a945d187b6f6e`)
+    .then(res => res.json())
+    .then(articles => this.setState({ topStories: articles.articles}))
+  }
+
+  
+
+  render() {
+    
+    return (
+      <div className="App">
+        <MainContainer articles={this.state.topStories} />
+      </div>
+    );
+  }
 }
 
 export default App;
