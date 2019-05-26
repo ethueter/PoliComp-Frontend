@@ -5,7 +5,7 @@ import { Button, Header, Icon, Image, Modal } from 'semantic-ui-react'
 const FullStory = (props) => (
     
     
-    <Modal trigger={<Button>Read It</Button>}>
+    <Modal trigger={<Button size='mini'>Read It</Button>}>
         <Modal.Header>Profile Picture</Modal.Header>
         <Modal.Content image scrolling>
             <Image size='medium' src={props.article.urlToImage} wrapped />
