@@ -1,27 +1,23 @@
+
 import React from 'react'
 import { Button, Header, Icon, Image, Modal } from 'semantic-ui-react'
 
-const FullStory = () => (
-    <Modal trigger={<Button>Long Modal</Button>}>
+const FullStory = (props) => (
+    
+    
+    <Modal trigger={<Button>Read It</Button>}>
         <Modal.Header>Profile Picture</Modal.Header>
-        <Modal.Content image>
-            <Image wrapped size='medium' src='https://react.semantic-ui.com/images/wireframe/image.png' />
+        <Modal.Content image scrolling>
+            <Image size='medium' src={props.article.urlToImage} wrapped />
+
             <Modal.Description>
-                <Header>Modal Header</Header>
-                <p>This is an example of expanded content that will cause the modal's dimmer to scroll</p>
-                <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
-                <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
-                <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
-                <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
-                <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
-                <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
-                <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
-                <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
+                <Header>{props.article.title}</Header>
+                <p>{props.article.content}</p>
             </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
             <Button primary>
-                Proceed <Icon name='right chevron' />
+                RATE IT <Icon name='chevron right' />
             </Button>
         </Modal.Actions>
     </Modal>

@@ -2,16 +2,12 @@ import React from 'react';
 import FullStory from './FullStory'
 
 class Story extends React.Component {
-
-    handleClick= () => {
-        console.log('test')
-        return < FullStory article={ this.props.story }/>
-    }
+    
 
     render() {
         return(
 
-            <li onClick={()=>FullStory}>{this.props.story.title}</li>
+            <li onClick={()=>this.props.handleRead(this.props.story)}>{this.props.story.title}<FullStory article={this.props.story}/></li>
         )
     }
 
