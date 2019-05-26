@@ -1,9 +1,10 @@
 import React from 'react';
-import NavBar from '../components/NavBar'
 import StoryContainer from './StoryContainer';
-import { Header, Grid, Divider, Segment} from 'semantic-ui-react';
+import {  Grid, Divider, Segment} from 'semantic-ui-react';
 import _ from 'lodash'
-// import FullStory from '../components/FullStory';
+import loadArticle from '../components/Calls';
+
+
 const key = '9663743b34524026854a945d187b6f6e'
 const domains = 'foxnews.com,huffpost.com,cnn.com,nytimes.com,washingtontimes.com,apnews.com,npr.com,aljazeera.com,brietbart.com,nationalreview.com,drudgereport.com,reuters.com'
 
@@ -32,9 +33,9 @@ class MainContainer extends React.Component {
                 this.setState({ headlines: nonDupList })})
     }
 
-   displayStory = () => {
-       return this.state.headlines.filter(article => article.read)
-   }
+//    displayStory = () => {
+//        return this.state.headlines.filter(article => article.read)
+//    }
 
     
 
@@ -48,6 +49,7 @@ class MainContainer extends React.Component {
             return article
         })
         this.setState({ headlines: readList})
+        // loadArticle(selectedStory)
         
     }
     
@@ -55,12 +57,9 @@ class MainContainer extends React.Component {
        
         return(
             <div>
+                
                 <div>
-                    <Header size='huge'>Political Compass</Header>
-                    <Header as='h3'>Read It.  Rate It.  Find Your Way.</Header>
-                </div>
-                <div>
-                    <NavBar />          
+                             
                     <Segment>
                         <Grid columns={2}>
                             

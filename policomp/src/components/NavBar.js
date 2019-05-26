@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Menu } from 'semantic-ui-react'
-
+import {Link} from 'react-router-dom'
 export default class NavBar extends Component {
     state = {}
 
@@ -11,17 +11,36 @@ export default class NavBar extends Component {
 
         return (
             <Menu>
-                <Menu.Item
-                    name='login'
-                    active={activeItem === 'login'}
+            
+                {
+                localStorage.getItem('token') ?
+                        <Menu.Item
+                            as={Link}
+                            to='/'
+                            name='login'
+                            active={activeItem === 'login'}
+                            onClick={this.handleItemClick}>
+                            Logout
+                        </Menu.Item> : 
+                                <Menu.Item
+                                    as={Link}
+                                    to='/login'
+                                    name='login'
+                                    active={activeItem === 'login'}
+                                    onClick={this.handleItemClick}>
+                                    Login
+                        </Menu.Item>
+                }
+                
+                    <Menu.Item 
+                    as={Link}
+                    to='/'
+                    name='home' 
+                    active={activeItem === 'home'} 
                     onClick={this.handleItemClick}>
-                    Login
-                </Menu.Item>
-
-                <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick}>
-                    Home
-                </Menu.Item>
-
+                        Home
+                    </Menu.Item>
+                
                 <Menu.Item
                     name='profile'
                     active={activeItem === 'profile'}
@@ -35,6 +54,7 @@ export default class NavBar extends Component {
                     News Sources
                 </Menu.Item>
             </Menu>
+            
         )
     }
 } 
