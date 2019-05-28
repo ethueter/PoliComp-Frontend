@@ -16,7 +16,7 @@ const loadArticle = (story) => {
         content: story.content,
         source_id: story.source.id
     }
-    fetch('http://localhost:3000/articles', {
+    fetch('http://localhost:3001/articles', {
         method: 'POST',
         headers: {
             'Content-Type' : 'application/json'
