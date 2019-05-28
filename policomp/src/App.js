@@ -3,7 +3,7 @@ import './App.css';
 import MainContainer from './containers/MainContainer';
 import NavBar from './components/NavBar';
 import Login from './components/Login'
-import { Switch, Route} from 'react-router-dom'
+import { Switch, Route, withRouter } from 'react-router-dom'
 import { Header } from 'semantic-ui-react'
 
 
@@ -12,7 +12,8 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      token: ''
+      token: '',
+      errors: []
     }
   }
 
@@ -26,7 +27,14 @@ class App extends React.Component {
       body: JSON.stringify(user)
     })
       .then(res => res.json())
-      .then(token => console.log(token))
+      .then(data => {
+        if (data.errors) {
+          this.setState({ errors: data.errors })
+        } else {
+          localStorage.setItem("token", data.token)
+        //  this.props.history.push("/")
+      }
+      })
 
   }
 
@@ -62,7 +70,7 @@ class App extends React.Component {
         </div>
         <NavBar />
         <Switch>
-          <Route exact path='/login' render={() => <Login handleSubmit={this.handleSubmit}/>} />
+          <Route exact path='/login' render={(props) => (<Login {...props} handleSubmit={this.handleSubmit} newSession={this.newSession}/>)} />
           <Route path='/' component={MainContainer} />
           
         </Switch>
@@ -71,4 +79,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withRouter(App);
