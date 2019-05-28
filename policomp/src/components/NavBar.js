@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
 import { Menu } from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
+
+
 export default class NavBar extends Component {
     state = {}
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
+    
+    
 
     render() {
         const { activeItem } = this.state
@@ -27,7 +32,8 @@ export default class NavBar extends Component {
                                     to='/login'
                                     name='login'
                                     active={activeItem === 'login'}
-                                    onClick={this.handleItemClick}>
+                                    onClick={this.handleItemClick}
+                                    >
                                     Login
                         </Menu.Item>
                 }

@@ -9,7 +9,43 @@ import { Header } from 'semantic-ui-react'
 
 
 class App extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      token: ''
+    }
+  }
 
+  newSession = (user) => {
+    console.log(user)
+    fetch('http://localhost:3000/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+      .then(res => res.json())
+      .then(token => console.log(token))
+
+  }
+
+  handleSubmit = (user) => {
+    
+    fetch('http://localhost:3000/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+      .then(res => res.json())
+      .then(newUser => {
+        newUser.password = user.password
+         this.newSession(newUser)
+      })
+
+  }
   
 
   
@@ -26,7 +62,7 @@ class App extends React.Component {
         </div>
         <NavBar />
         <Switch>
-          <Route exact path='/login' component={Login} />
+          <Route exact path='/login' render={() => <Login handleSubmit={this.handleSubmit}/>} />
           <Route path='/' component={MainContainer} />
           
         </Switch>
