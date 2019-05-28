@@ -5,7 +5,6 @@ const SearchFluid = () => <Input fluid icon='search' placeholder='Search...' />
 
 export default SearchFluid
 
-// export default InputExampleFluid
 // class Search extends React.Component {
 
 //   constructor() {

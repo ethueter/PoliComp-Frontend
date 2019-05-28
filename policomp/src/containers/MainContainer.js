@@ -44,11 +44,37 @@ class MainContainer extends React.Component {
             search: e.target.value
         })
     }
+let url = 'https://newsapi.org/v2/everything?' +
+    'q=Apple&' +
+    'from=2019-05-28&' +
+    'sortBy=popularity&' +
+    'apiKey=API_KEY';
+
+let req = new Request(url);
+
+fetch(req)
+    .then(response  {
+        console.log(response.json());
+    })
+
+
 
     filteredArticles() {
         let searched = this.state.search
-        let searchedArticles = this.state.headlines.filter(headline => {
-            return headline.description.toLowerCase().includes(searched)
+        let searchedArticles = fetch(`https://newsapi.org/v2/everything?q=political&domains=${domains}&language=en&sortby=publishedAt&pageSize=100&apiKey=${key}`)
+            .then(res => res.json())
+            .then(articles => {
+
+                let newList = articles.articles.map(article => {
+                    return {
+                        ...article,
+                        read: false
+                    }
+                })
+                let nonDupList = _.uniqBy(newList, 'title')
+                this.setState({ headlines: nonDupList })
+            })
+
         })
         return searchedArticles
     }
