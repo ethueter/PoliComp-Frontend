@@ -24,7 +24,7 @@ export default class NavBar extends Component {
                             to='/'
                             name='login'
                             active={activeItem === 'login'}
-                            onClick={this.handleItemClick}>
+                            onClick={localStorage.removeItem('token')}>
                             Logout
                         </Menu.Item> : 
                                 <Menu.Item

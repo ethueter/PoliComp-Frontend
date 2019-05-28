@@ -53,18 +53,30 @@ class Login extends React.Component {
             </Card>
             <Card>
                 <Card.Content>                  
-                            <Form>
-                                <Form.Field
-                                    id='form-input-control-username'
-                                    control={Input}
-                                    label='Username:'
-                                />
-                                <Form.Field
-                                    id='form-input-control-password'
-                                    control={Input}
-                                    label='Password'
-                                />
-                                <Button type='submit'>Sign In</Button>
+                            <Form className='sign-in' onSubmit={()=>this.props.newSession(this.state)}>
+                            <Form.Field
+                                id='form-input-control-su-username'
+                                control={Input}
+                                label='Username:'
+                                name='username'
+                                onChange={(e) => this.handleChange(e)}
+                            />
+                            <Form.Field
+                                id='form-input-control-su-email'
+                                control={Input}
+                                label='Email'
+                                name='email'
+                                onChange={(e) => this.handleChange(e)}
+                            />
+                            <Form.Field
+                                id='form-input-control-su-password'
+                                control={Input}
+                                type='password'
+                                label='Password'
+                                name='password'
+                                onChange={(e) => this.handleChange(e)}
+                            />
+                            <Button type='submit'>Sign In</Button>
                             </Form>       
                 </Card.Content>
             </Card>

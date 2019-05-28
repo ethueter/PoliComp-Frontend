@@ -28,4 +28,26 @@ const loadArticle = (story) => {
 
 }
 
+const buildSources = (source) => {
+    let newSource = {
+        id : source.id,
+        name: source.name
+    }
+    fetch('http://localhost:3000/sources', {
+        method: 'POST',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(newSource)
+    })
+    .then(res => res.json())
+    .then(source => console.log(source))
+}
+
+const buildUserStory = () => {
+    let userStory = {
+        
+    }
+}
+
 export default loadArticle
