@@ -1,46 +1,58 @@
 import React from 'react'
-import { Card, Reveal, Form, Input, Button, Image } from 'semantic-ui-react'
+import { Card, Form, Input, Button } from 'semantic-ui-react'
 
 
-const Login = () => {
+class Login extends React.Component {
+    constructor() {
+        super()
+        this.state = {
+            username: '',
+            email: '',
+            password: ''
+        }
+    }
+
+    handleChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value})
+    }
     
-    return (
+    render() {
+
+        return (
         
         
             <Card.Group>
             <Card>
                 <Card.Content>
-                    <Reveal animated='move right'>
-                        <Reveal.Content visible>
-                            <h3>Sign Up</h3>
-                        </Reveal.Content>
-                        <Reveal.Content hidden>
-                            <Form>
+                            <Form className='sign-up' onSubmit={() => this.props.handleSubmit(this.state)}>
                                 <Form.Field
-                                    id='form-input-control-username'
+                                    id='form-input-control-su-username'
                                     control={Input}
                                     label='Username:'
+                                    name='username'
+                                    onChange={(e) => this.handleChange(e)}
                                 />
                                 <Form.Field
-                                    id='form-input-control-password'
+                                    id='form-input-control-su-email'
                                     control={Input}
+                                    label='Email'
+                                    name='email'
+                                    onChange={(e)=> this.handleChange(e)}
+                                />
+                                <Form.Field
+                                    id='form-input-control-su-password'
+                                    control={Input}
+                                    type='password'
                                     label='Password'
+                                    name='password'
+                                    onChange={(e) => this.handleChange(e)}
                                 />
                                 <Button type='submit'>Sign Up</Button>
                             </Form>
-                        </Reveal.Content>                
-                    </Reveal>
                 </Card.Content>
             </Card>
             <Card>
-                <Card.Content>
-                    <Reveal animated='move left'>
-                        <Reveal.Content visible>
-                            {/* <h3>Sign In</h3> */}
-                            <Image src='policomp/PoliComp-Frontend/policomp/src/compass2.jpeg' size='large' />
-
-                        </Reveal.Content>
-                        <Reveal.Content hidden>
+                <Card.Content>                  
                             <Form>
                                 <Form.Field
                                     id='form-input-control-username'
@@ -53,14 +65,11 @@ const Login = () => {
                                     label='Password'
                                 />
                                 <Button type='submit'>Sign In</Button>
-                            </Form>
-                        </Reveal.Content>
-                    </Reveal>
+                            </Form>       
                 </Card.Content>
             </Card>
         </Card.Group>
-
-    )
+        )}
 
 }
 
