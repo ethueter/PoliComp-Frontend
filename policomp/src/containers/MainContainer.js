@@ -2,8 +2,12 @@ import React from 'react';
 import StoryContainer from './StoryContainer';
 import {  Grid, Divider, Segment} from 'semantic-ui-react';
 import _ from 'lodash'
+
+import FullStory from '../components/FullStory';
+
 import loadArticle from '../components/Calls';
 import Search from '../components/Search.js'
+
 
 
 const key = '9663743b34524026854a945d187b6f6e'
@@ -17,8 +21,12 @@ class MainContainer extends React.Component {
         this.state = {
             headlines: [],
             readStory: [],
+
+            mainStory: {}
+
             filtered: [],
             search: ''
+
 
         }
     }
@@ -36,6 +44,27 @@ class MainContainer extends React.Component {
                 let nonDupList = _.uniqBy(newList, 'title')
                 this.setState({ headlines: nonDupList })})
     }
+
+
+    loadArticle = (story) => {
+
+        let newArticle = {
+            title: story.title,
+            author: story.author,
+            content: story.content,
+            source_id: story.source.id
+        }
+        fetch('http://localhost:3000/api/articles', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Token': localStorage.getItem("token")
+            },
+            body: JSON.stringify(newArticle)
+        })
+            .then(res => res.json())
+            .then(loadedStory => this.setState({mainStory: loadedStory}))
+
 
 //    displayStory = () => {
 //        return this.state.headlines.filter(article => article.read)
@@ -78,6 +107,7 @@ class MainContainer extends React.Component {
 
         // })
         // return searchedArticles
+
     }
 
 
@@ -91,7 +121,9 @@ class MainContainer extends React.Component {
             return article
         })
         this.setState({ headlines: readList})
-        // loadArticle(selectedStory)
+
+        this.loadArticle(selectedStory)
+        
 
     }
 
@@ -99,6 +131,10 @@ class MainContainer extends React.Component {
 
         return(
             <div>
+
+                { this.state.mainStory.id ? <FullStory article={this.state.mainStory}/> : null }
+
+
 
                 <div>
                     <Segment>
