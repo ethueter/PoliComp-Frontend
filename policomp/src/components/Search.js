@@ -1,7 +1,7 @@
 import React from 'react'
 import { Input } from 'semantic-ui-react'
 
-const SearchFluid = () => <Input fluid icon='search' placeholder='Search...' onClick={this.props.handleSearch} />
+const SearchFluid = (props) => <Input fluid icon='search' placeholder='Search...' onClick={this.props.handleSearch} />
 
 export default SearchFluid
 

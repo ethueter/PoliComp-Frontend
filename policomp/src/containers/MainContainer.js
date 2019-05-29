@@ -6,7 +6,7 @@ import _ from 'lodash'
 import FullStory from '../components/FullStory';
 
 import loadArticle from '../components/Calls';
-import Search from '../components/Search.js'
+import SearchFluid from '../components/Search.js'
 
 
 
@@ -21,9 +21,7 @@ class MainContainer extends React.Component {
         this.state = {
             headlines: [],
             readStory: [],
-
-            mainStory: {}
-
+            mainStory: {},
             filtered: [],
             search: ''
 
@@ -64,17 +62,16 @@ class MainContainer extends React.Component {
         })
             .then(res => res.json())
             .then(loadedStory => this.setState({mainStory: loadedStory}))
+    }
 
 
-//    displayStory = () => {
-//        return this.state.headlines.filter(article => article.read)
-//    }
-    handleSearch = () => {
+
+    handleSearch = (e) => {
 
         this.setState({
             search: e.target.value
         })
-        filterArticles()
+        this.filterArticles()
     }
 // let url = 'https://newsapi.org/v2/everything?' +
 //     'q=Apple&' +
@@ -137,9 +134,8 @@ class MainContainer extends React.Component {
 
 
                 <div>
-                    <Segment>
-                        <Search handleSearch={this.handleSearch}/>
-                    </Segment>
+                   
+                   
                     <Segment>
                         <Grid columns={2}>
 
@@ -149,6 +145,8 @@ class MainContainer extends React.Component {
 
                             <Grid.Column width={8}>
                                 <p>This is just testing out spacing and will be where site instructions go.</p>
+                                <SearchFluid handleSearch={this.handleSearch} />
+
                             </Grid.Column>
 
                         </Grid>
