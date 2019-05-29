@@ -17,6 +17,7 @@ const loadArticle = (story) => {
         content: story.content,
         source_id: story.source.id
     }
+
     fetch('http://localhost:3000/api/articles', {
         method: 'POST',
         headers: {
@@ -34,7 +35,7 @@ const loadArticle = (story) => {
 
 const buildUserStory = () => {
     let userStory = {
-        
+
     }
 }
 

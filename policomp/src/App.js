@@ -31,14 +31,14 @@ class App extends React.Component {
           this.setState({ errors: data.errors })
         } else {
           localStorage.setItem("token", data.token)
-        //  this.props.history.push("/")
-      }
+          //  this.props.history.push("/")
+        }
       })
 
   }
 
   handleSubmit = (user) => {
-    
+
     fetch('http://localhost:3000/api/users', {
       method: 'POST',
       headers: {
@@ -49,18 +49,18 @@ class App extends React.Component {
       .then(res => res.json())
       .then(newUser => {
         newUser.password = user.password
-         this.newSession(newUser)
+        this.newSession(newUser)
       })
 
   }
-  
 
-  
 
-  
+
+
+
 
   render() {
-    
+
     return (
       <div className="App">
         <div>
@@ -69,9 +69,9 @@ class App extends React.Component {
         </div>
         <NavBar />
         <Switch>
-          <Route exact path='/login' render={(props) => (<Login {...props} handleSubmit={this.handleSubmit} newSession={this.newSession}/>)} />
+          <Route exact path='/login' render={(props) => (<Login {...props} handleSubmit={this.handleSubmit} newSession={this.newSession} />)} />
           <Route path='/' component={MainContainer} />
-          
+
         </Switch>
       </div>
     );
