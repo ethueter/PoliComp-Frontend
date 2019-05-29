@@ -2,7 +2,7 @@ import React from 'react';
 import StoryContainer from './StoryContainer';
 import {  Grid, Divider, Segment} from 'semantic-ui-react';
 import _ from 'lodash'
-import loadArticle from '../components/Calls';
+import FullStory from '../components/FullStory';
 
 
 const key = '9663743b34524026854a945d187b6f6e'
@@ -15,7 +15,8 @@ class MainContainer extends React.Component {
         super()
         this.state = {
             headlines: [],
-            readStory: []
+            readStory: [],
+            mainStory: {}
 
         }
     }
@@ -33,9 +34,26 @@ class MainContainer extends React.Component {
                 this.setState({ headlines: nonDupList })})
     }
 
-//    displayStory = () => {
-//        return this.state.headlines.filter(article => article.read)
-//    }
+    loadArticle = (story) => {
+
+        let newArticle = {
+            title: story.title,
+            author: story.author,
+            content: story.content,
+            source_id: story.source.id
+        }
+        fetch('http://localhost:3000/api/articles', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Token': localStorage.getItem("token")
+            },
+            body: JSON.stringify(newArticle)
+        })
+            .then(res => res.json())
+            .then(loadedStory => this.setState({mainStory: loadedStory}))
+
+    }
 
     
 
@@ -49,7 +67,7 @@ class MainContainer extends React.Component {
             return article
         })
         this.setState({ headlines: readList})
-        // loadArticle(selectedStory)
+        this.loadArticle(selectedStory)
         
     }
     
@@ -57,7 +75,7 @@ class MainContainer extends React.Component {
        
         return(
             <div>
-                
+                { this.state.mainStory.id ? <FullStory article={this.state.mainStory}/> : null }
                 <div>
                              
                     <Segment>

@@ -10,16 +10,18 @@ import React from 'react';
 
 
 const loadArticle = (story) => {
+    
     let newArticle = {
         title: story.title,
         author: story.author,
         content: story.content,
         source_id: story.source.id
     }
-    fetch('http://localhost:3000/articles', {
+    fetch('http://localhost:3000/api/articles', {
         method: 'POST',
         headers: {
-            'Content-Type' : 'application/json'
+            'Content-Type' : 'application/json',
+            'Access-Token' : localStorage.getItem("token")
         },
         body: JSON.stringify(newArticle)
     })
@@ -28,21 +30,7 @@ const loadArticle = (story) => {
 
 }
 
-const buildSources = (source) => {
-    let newSource = {
-        id : source.id,
-        name: source.name
-    }
-    fetch('http://localhost:3000/sources', {
-        method: 'POST',
-        headers: {
-            'Content-Type' : 'application/json'
-        },
-        body: JSON.stringify(newSource)
-    })
-    .then(res => res.json())
-    .then(source => console.log(source))
-}
+
 
 const buildUserStory = () => {
     let userStory = {
