@@ -9,34 +9,28 @@ import React from 'react';
 
 
 
-const loadArticle = (story) => {
+const newUserArticle = (props) => {
     
-    let newArticle = {
-        title: story.title,
-        author: story.author,
-        content: story.content,
-        source_id: story.source.id
+    let newUserArticle = {
+        user_id: localStorage.getItem("current_user_id"),
+        article_id: props.article.id,
+        favorite: false,
+        rating: props.articleRating,
+        visable: true
     }
 
-    fetch('http://localhost:3000/api/articles', {
+    fetch('http://localhost:3000/api/users_articles', {
         method: 'POST',
         headers: {
             'Content-Type' : 'application/json',
             'Access-Token' : localStorage.getItem("token")
         },
-        body: JSON.stringify(newArticle)
+        body: JSON.stringify(newUserArticle)
     })
     .then(res => res.json())
-    .then(loadedStory => console.log('after db', loadedStory))
+    .then(userStoryNew => console.log('after db', userStoryNew))
 
 }
 
 
-
-const buildUserStory = () => {
-    let userStory = {
-
-    }
-}
-
-export default loadArticle
+export default newUserArticle

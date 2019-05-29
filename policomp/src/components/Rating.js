@@ -1,5 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Button, Icon, Modal, Form, Checkbox, Segment } from 'semantic-ui-react'
+import newUserArticle from './Calls';
 
 class NestedModal extends React.Component {
     state = { open: false }
@@ -17,17 +19,23 @@ class NestedModal extends React.Component {
                 onClose={this.close}
                 size='small'
                 trigger={
-                    <Button primary icon>
+                    <Button primary icon onClick={() => newUserArticle(this.props)}>
                         Submit Rating <Icon name='right chevron' />
                     </Button>
                 }
             >
-                <Modal.Header>Modal #2</Modal.Header>
+                <Modal.Header>That Story Came From:</Modal.Header>
                 <Modal.Content>
-                    <p>That's everything!</p>
+                    <h1>{this.props.article.source_name}</h1>
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button icon='check' content='All Done' onClick={this.close} />
+                    <Button 
+                    as={Link} 
+                    to="/" 
+                    icon='check' 
+                    content='All Done' 
+                    onClick={this.close} />
+                    
                 </Modal.Actions>
             </Modal>
         )
@@ -42,7 +50,7 @@ class RatingModal extends React.Component {
 
         return(
     
-    <Modal trigger={<Button>Multiple Modals</Button>}>
+    <Modal trigger={<Button>Rate It!</Button>}>
         <Modal.Header>Rate It!</Modal.Header>
         <Modal.Content image>
             <div className='image'>
@@ -107,7 +115,7 @@ class RatingModal extends React.Component {
             </Segment>
         </Modal.Content>
         <Modal.Actions>
-            <NestedModal />
+                    <NestedModal article={this.props.article} articleRating={this.state.value}/>
         </Modal.Actions>
     </Modal>
     
