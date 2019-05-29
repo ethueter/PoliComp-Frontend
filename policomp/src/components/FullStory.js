@@ -1,5 +1,6 @@
 
 import React from 'react'
+import Rating from './Rating'
 import { Button, Header, Icon, Image, Modal } from 'semantic-ui-react'
 
 const FullStory = (props) => (
@@ -16,9 +17,7 @@ const FullStory = (props) => (
             </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-            <Button primary>
-                RATE IT <Icon name='chevron right' />
-            </Button>
+            <Rating article={props.article}/>
         </Modal.Actions>
     </Modal>
 )

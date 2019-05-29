@@ -1,35 +1,22 @@
 import React from 'react'
-import { Input } from 'semantic-ui-react'
+import _ from 'lodash'
+import { Search } from 'semantic-ui-react'
 
-const SearchFluid = (props) => <Input fluid icon='search' placeholder='Search...' onClick={this.props.handleSearch} />
+// const SearchFluid = (props) => <Input fluid icon='search' placeholder='Search...' onChange={props.handleSearch} />
 
-export default SearchFluid
+// export default SearchFluid
 
-// class Search extends React.Component {
+const ArticleSearch = (props) => {
 
-//   constructor() {
-//     super()
-//     console.log("Search component constructed!")
-
-//   }
-
-
-//   componentDidMount() {
-
-//     console.log("Search Component Mounted! ")
-
-//   }
-
-//   render() {
-//     return (
-//       <div className="ui icon input">
-//         <i className="search icon"></i>
-//         <input type="text" placeholder="Search..." onChange={this.props.handleSearch} />
-//       </div>
-//     )
-//   }
+    return (
+        <Search
+            onSearchChange={_.debounce(props.handleSearch, 1000, {
+                leading: true,
+            })}
+        />
+    )
+}
+    
 
 
-
-// }
-// export default Search;
+export default ArticleSearch;
