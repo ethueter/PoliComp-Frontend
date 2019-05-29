@@ -17,6 +17,7 @@ class MainContainer extends React.Component {
         this.state = {
             headlines: [],
             readStory: [],
+            filtered: [],
             search: ''
 
         }
@@ -39,29 +40,29 @@ class MainContainer extends React.Component {
 //    displayStory = () => {
 //        return this.state.headlines.filter(article => article.read)
 //    }
-    handleChange = (e) => {
+    handleSearch = () => {
+
         this.setState({
             search: e.target.value
         })
+        filterArticles()
     }
-let url = 'https://newsapi.org/v2/everything?' +
-    'q=Apple&' +
-    'from=2019-05-28&' +
-    'sortBy=popularity&' +
-    'apiKey=API_KEY';
+// let url = 'https://newsapi.org/v2/everything?' +
+//     'q=Apple&' +
+//     'from=2019-05-28&' +
+//     'sortBy=popularity&' +
+//     'apiKey=API_KEY';
 
-let req = new Request(url);
+// let req = new Request(url);
 
-fetch(req)
-    .then(response  {
-        console.log(response.json());
-    })
+// fetch(req)
+//     .then(response  {
+//         console.log(response.json());
+//     })
 
-
-
-    filteredArticles() {
-        let searched = this.state.search
-        let searchedArticles = fetch(`https://newsapi.org/v2/everything?q=political&domains=${domains}&language=en&sortby=publishedAt&pageSize=100&apiKey=${key}`)
+    filterArticles = () => {
+        let search_params = this.state.search
+        fetch(`https://newsapi.org/v2/everything?q=${search_params}&domains=${domains}&language=en&sortby=publishedAt&pageSize=100&apiKey=${key}`)
             .then(res => res.json())
             .then(articles => {
 
@@ -75,8 +76,8 @@ fetch(req)
                 this.setState({ headlines: nonDupList })
             })
 
-        })
-        return searchedArticles
+        // })
+        // return searchedArticles
     }
 
 
@@ -101,7 +102,7 @@ fetch(req)
 
                 <div>
                     <Segment>
-                        <Search handleChange={this.handleChange}/>
+                        <Search handleSearch={this.handleSearch}/>
                     </Segment>
                     <Segment>
                         <Grid columns={2}>
