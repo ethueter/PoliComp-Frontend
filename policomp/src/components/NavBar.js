@@ -48,6 +48,8 @@ export default class NavBar extends Component {
                     </Menu.Item>
                 
                 <Menu.Item
+                    as={Link}
+                    to='/profile'
                     name='profile'
                     active={activeItem === 'profile'}
                     onClick={this.handleItemClick}>

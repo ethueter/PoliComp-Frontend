@@ -34,7 +34,7 @@ class NestedModal extends React.Component {
                     to="/" 
                     icon='check' 
                     content='All Done' 
-                    onClick={this.close} />
+                    onClick={this.props.close} />
                     
                 </Modal.Actions>
             </Modal>
@@ -115,7 +115,7 @@ class RatingModal extends React.Component {
             </Segment>
         </Modal.Content>
         <Modal.Actions>
-                    <NestedModal article={this.props.article} articleRating={this.state.value}/>
+                    <NestedModal article={this.props.article} articleRating={this.state.value} close={this.props.close}/>
         </Modal.Actions>
     </Modal>
     
