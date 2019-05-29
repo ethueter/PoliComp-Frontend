@@ -31,7 +31,8 @@ class App extends React.Component {
           this.setState({ errors: data.errors })
         } else {
           localStorage.setItem("token", data.token)
-          //  this.props.history.push("/")
+          localStorage.setItem("current_user_id", data.current_user_id)
+           this.props.history.push("/")
         }
       })
 

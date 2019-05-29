@@ -16,7 +16,7 @@ class MainContainer extends React.Component {
         super()
         this.state = {
             headlines: [],
-            readStory: [],
+            sources: [],
             mainStory: {},
             filtered: [],
             search: ''
@@ -37,17 +37,23 @@ class MainContainer extends React.Component {
                 })
                 let nonDupList = _.uniqBy(newList, 'title')
                 this.setState({ headlines: nonDupList })})
+        fetch('http://localhost:3000/api/sources')
+                .then(res => res.json())
+                .then(sourceList => this.setState({ sources: sourceList}))
     }
 
 
     loadArticle = (story) => {
+        console.log('read', story)
+        let sourceIdent= _.filter(this.state.sources, {'name': story.source.name})
 
         let newArticle = {
             title: story.title,
             author: story.author,
             content: story.content,
-            source_id: story.source.id
+            source_id: sourceIdent[0].id
         }
+        console.log('after filter', newArticle)
         fetch('http://localhost:3000/api/articles', {
             method: 'POST',
             headers: {
@@ -57,13 +63,15 @@ class MainContainer extends React.Component {
             body: JSON.stringify(newArticle)
         })
             .then(res => res.json())
-            .then(loadedStory => this.setState({mainStory: loadedStory}))
+            .then(loadedStory => {
+                    let returnedStory = loadedStory
+                    returnedStory.source_name =sourceIdent[0].name
+                this.setState({mainStory: returnedStory})})
     }
 
 
 
     handleSearch = (e) => {
-        console.log('search', e.target.value)
         this.setState({
             search: e.target.value
         })
@@ -92,7 +100,6 @@ class MainContainer extends React.Component {
 
 
     handleRead = (selectedStory) => {
-        console.log('read', selectedStory)
         let readList = this.state.headlines.map(article => {
             if (article.title == selectedStory.title) {
                 article.read = true
