@@ -3,6 +3,7 @@ import './App.css';
 import MainContainer from './containers/MainContainer';
 import NavBar from './components/NavBar';
 import Login from './components/Login'
+import Profile from './components/Profile'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import { Header } from 'semantic-ui-react'
 
@@ -17,7 +18,7 @@ class App extends React.Component {
   }
 
   newSession = (user) => {
-    console.log(user)
+    
     fetch('http://localhost:3000/api/login', {
       method: 'POST',
       headers: {
@@ -71,6 +72,7 @@ class App extends React.Component {
         <NavBar />
         <Switch>
           <Route exact path='/login' render={(props) => (<Login {...props} handleSubmit={this.handleSubmit} newSession={this.newSession} />)} />
+          <Route exact path='/profile' component={Profile} />
           <Route path='/' component={MainContainer} />
 
         </Switch>
